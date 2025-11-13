@@ -32,7 +32,7 @@ public class LinguagemController {
         return ResponseEntity.ok(linguagem);
     }
 
-    @GetMapping("/{buscar}")
+    @GetMapping("/buscar")
     public ResponseEntity<Linguagem> buscarPorNome(@RequestParam String nome){
         Linguagem linguagem =  linguagemService.buscarLinguagemPorNome(nome);
         return ResponseEntity.ok(linguagem);
@@ -44,7 +44,6 @@ public class LinguagemController {
             @RequestParam("criador") String criador,
             @RequestParam("anoCriacao") int anoCriacao,
             @RequestParam("paradigma") String paradigma,
-            @RequestParam("descricao") String descricao,
             @RequestParam("foto") MultipartFile foto
     ) throws IOException {
         // Define o diretório de upload (ex: dentro de /static/uploads)
@@ -69,7 +68,6 @@ public class LinguagemController {
         nova.setCriador(criador);
         nova.setAnoCriacao(anoCriacao);
         nova.setParadigma(paradigma);
-        nova.setDescricao(descricao);
         nova.setFoto(urlImagem);
 
         linguagemService.salvarLinguagem(nova);
@@ -78,7 +76,7 @@ public class LinguagemController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletaPorId(@PathVariable Integer idLinguagem){
+    public ResponseEntity<Void> deletaPorId(@PathVariable("id") Integer idLinguagem){
         linguagemService.deletarLinguagemPorId(idLinguagem);
         return ResponseEntity.ok().build();
     }

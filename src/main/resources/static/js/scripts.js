@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("criador", document.getElementById("criador").value);
         formData.append("anoCriacao", document.getElementById("anoCriacao").value);
         formData.append("paradigma", document.getElementById("paradigma").value);
-        formData.append("descricao", document.getElementById("descricao").value);
         formData.append("foto", document.getElementById("foto").files[0]);
 
         try {
@@ -39,32 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
-async function abrirDetalhes(id) {
-    try {
-        const response = await fetch(`/api/linguagem/${id}`);
-        if (!response.ok) throw new Error("Erro ao buscar detalhes");
-
-        const linguagem = await response.json();
-
-        document.getElementById("detalheNome").textContent = linguagem.nome;
-        document.getElementById("detalheCriador").textContent = linguagem.criador;
-        document.getElementById("detalheAno").textContent = linguagem.anoCriacao;
-        document.getElementById("detalheParadigma").textContent = linguagem.paradigma;
-        document.getElementById("detalheDescricao").textContent = linguagem.descricao;
-        document.getElementById("detalheFoto").src = linguagem.foto;
-
-        // Mostra o modal
-        const modal = document.getElementById("modalDetalhes");
-        modal.style.display = "block";
-    } catch (e) {
-        alert("Erro ao abrir detalhes: " + e.message);
-    }
-}
-
-function fecharModal() {
-    document.getElementById("modalDetalhes").style.display = "none";
-}
 
 // Fecha o modal se clicar fora dele
 window.onclick = function (event) {

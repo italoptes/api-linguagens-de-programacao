@@ -21,10 +21,6 @@ public class Linguagem {
     private String criador;
     private Integer anoCriacao;
     private String paradigma;
-
-    @Column(length = 2000) //Números de caracter que vai ter a coluna de descriação
-    private String descricao;
-
-    private String Foto;
+    private String foto;
 
 }
