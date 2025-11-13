@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Museu das Linguagens de Programação</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Museu das Linguagens de Programação</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Explore a história das linguagens de programação</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mt-4 text-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novaLinguagemModal">
+                + Adicionar Linguagem
+            </button>
+        </div>
+
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <!-- LOOP DAS LINGUAGENS -->
+                    <div class="col mb-5" th:each="linguagem : ${linguagens}">
+                        <div class="card h-50">
+                            <!-- Imagem -->
+                            <img class="card-img-top" th:src="@{${linguagem.foto}}" alt="Foto da linguagem" />
+
+                            <!-- Detalhes-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder" th:text="${linguagem.nome}">Nome da linguagem</h5>
+                                    <p th:text="'Criador: ' + ${linguagem.criador}"></p>
+                                    <p th:text="'Ano: ' + ${linguagem.anoCriacao}"></p>
+                                    <p><i th:text="${linguagem.paradigma}"></i></p>
+                                </div>
+                            </div>
+
+                            <!-- Botão de ação -->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                                <button class="btn btn-outline-dark mt-auto" onclick="abrirDetalhes([[${linguagem.id}]])">
+                                    Ver detalhes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="modalDetalhes" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <span class="close" onclick="fecharModal()">&times;</span>
+                        <h2 id="detalheNome"></h2>
+                        <img id="detalheFoto" alt="Foto da linguagem" style="max-width: 100%; border-radius: 10px;">
+                        <p><b>Criador:</b> <span id="detalheCriador"></span></p>
+                        <p><b>Ano:</b> <span id="detalheAno"></span></p>
+                        <p><b>Paradigma:</b> <span id="detalheParadigma"></span></p>
+                        <p id="detalheDescricao"></p>
+                    </div>
+                </div>
+
+                <!-- Modal de Nova Linguagem -->
+                <div class="modal fade" id="novaLinguagemModal" tabindex="-1" aria-labelledby="novaLinguagemLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="formNovaLinguagem" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="novaLinguagemLabel">Adicionar Linguagem</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="nome" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="nome" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="criador" class="form-label">Criador</label>
+                                        <input type="text" class="form-control" id="criador" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="anoCriacao" class="form-label">Ano de Criação</label>
+                                        <input type="number" class="form-control" id="anoCriacao" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="paradigma" class="form-label">Paradigma</label>
+                                        <input type="text" class="form-control" id="paradigma" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="foto" class="form-label">Foto da Linguagem</label>
+                                        <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="descricao" class="form-label">Descrição</label>
+                                        <textarea class="form-control" id="descricao" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Ítalo Pontes 2025</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
